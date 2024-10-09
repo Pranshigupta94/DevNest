@@ -1,0 +1,2 @@
+org.springframework.test.context.ContextCustomizerFactory = io.pragra.\
+    yellowstone.config.SqlTestContainersSpringContextCustomizerFactory
