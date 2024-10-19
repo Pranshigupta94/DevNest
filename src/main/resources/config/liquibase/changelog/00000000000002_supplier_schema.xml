@@ -11,7 +11,7 @@
     </changeSet>
 
     <changeSet id="00000000000021" author="atin">
-      <createSequence sequenceName="bn_sequnce" startValue="10000" incrementBy="1"/>
+      <createSequence sequenceName="bn_sequence" startValue="10000" incrementBy="1"/>
     </changeSet>
     <changeSet id="00000000000022" author="atin">
       <createSequence sequenceName="location_seq" startValue="1500" incrementBy="1"/>

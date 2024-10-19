@@ -1,10 +1,13 @@
 package io.pragra.yellowstone.domain;
 
 import jakarta.persistence.*;
+import java.util.Date;
+import lombok.Data;
 
 @Entity
 @Table(name = "table_supplier")
-public class Supplier {
+@Data
+public class Supplier extends AbstractAuditingEntity<Long> {
 
     @Id
     @GeneratedValue(generator = "supplierSequence", strategy = GenerationType.SEQUENCE)
@@ -20,6 +23,11 @@ public class Supplier {
 
     private String phone;
 
-    @Transient
-    private String noDbCol;
+    @OneToOne
+    @JoinColumn(name = "business_id")
+    private BusinessEntity businessEntity;
+
+    public Long getId() {
+        return id;
+    }
 }
