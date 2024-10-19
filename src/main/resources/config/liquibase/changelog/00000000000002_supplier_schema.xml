@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="00000000000020" author="atin">
+        <createSequence sequenceName="supplier_sequence" startValue="9000" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="00000000000021" author="atin">
+      <createSequence sequenceName="bn_sequnce" startValue="10000" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="00000000000022" author="atin">
+      <createSequence sequenceName="location_seq" startValue="1500" incrementBy="1"/>
+    </changeSet>
+
+
+  <!--
+      JHipster core tables.
+      The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
+  -->
+    <changeSet id="00000000000023" author="atin">
+        <createTable tableName="table_supplier">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(60)"/>
+            <column name="last_name" type="varchar(60)"/>
+            <column name="email" type="varchar(50)">
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_supp_email"/>
+            </column>
+            <column name="phone" type="varchar(11)"/>
+            <column name="image_url" type="varchar(256)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="business_id" type="bigint"></column>
+        </createTable>
+
+        <createTable tableName="table_business_entity">
+            <column name="id" type="bigint">
+              <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"></column>
+            <column name="legal_business_name" type="varchar(100)"></column>
+            <column name="business_number" type="varchar(20)"></column>
+            <column name="tax_id" type="varchar(20)"></column>
+            <column name="location_id" type="bigint" ></column>
+          <column name="created_date" type="timestamp"/>
+          <column name="last_modified_by" type="varchar(50)"/>
+          <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+          <createTable tableName="table_business_location">
+            <column name="id" type="bigint">
+              <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="street_no" type="bigint"></column>
+            <column name="street_name" type="varchar(100)"></column>
+            <column name="city" type="varchar(20)"></column>
+            <column name="state" type="varchar(20)"></column>
+            <column name="zip" type="varchar(20)" ></column>
+            <column name="country" type="varchar(20)" ></column>
+            <column name="location_type" type="varchar(20)" ></column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+          </createTable>
+
+
+        <addForeignKeyConstraint baseColumnNames="business_id"
+                                 baseTableName="table_supplier"
+                                 constraintName="fk_business_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="table_business_entity"/>
+
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="table_business_entity"
+                                 constraintName="fk_location_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="table_business_location"/>
+     <dropDefaultValue tableName="table_supplier" columnName="created_date" columnDataType="${datetimeType}"/>
+     <dropDefaultValue tableName="table_business_entity" columnName="created_date" columnDataType="${datetimeType}"/>
+     <dropDefaultValue tableName="table_business_location" columnName="created_date" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+
+
+</databaseChangeLog>
